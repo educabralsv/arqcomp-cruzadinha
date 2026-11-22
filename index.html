@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArqComp | Cruzadinha de Arquitetura</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="cabecalho-conteudo">
+
+            <a href="index.html" class="marca">
+                <span class="marca-icone">A</span>
+
+                <span class="marca-texto">
+                    <strong>ARQCOMP</strong>
+                    <small>DESAFIO DE ARQUITETURA</small>
+                </span>
+            </a>
+
+            <div class="cabecalho-info">
+                <span class="indicador-status"></span>
+                <span>Atividade avaliativa III</span>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="conteudo-principal">
+
+        <section class="apresentacao">
+
+            <div class="apresentacao-texto">
+
+                <span class="etiqueta">SPRINT 3 · ARQUITETURA COMPUTACIONAL</span>
+
+                <h1>Desafie seus conhecimentos.</h1>
+
+                <p>
+                    Teste o que você aprendeu sobre arquitetura computacional
+                    resolvendo uma cruzadinha com conceitos fundamentais da área.
+                </p>
+
+                <div class="resumo-desafio">
+                    <div class="resumo-item">
+                        <strong>16</strong>
+                        <span>Conceitos</span>
+                    </div>
+
+                    <div class="resumo-divisor"></div>
+
+                    <div class="resumo-item">
+                        <strong>01</strong>
+                        <span>Desafio</span>
+                    </div>
+
+                    <div class="resumo-divisor"></div>
+
+                    <div class="resumo-item">
+                        <strong>100%</strong>
+                        <span>Conhecimento</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="apresentacao-destaque">
+                <div class="destaque-simbolo">⌘</div>
+                <span>ARQUITETURA</span>
+                <strong>COMPUTACIONAL</strong>
+                <small>Aprenda. Conecte. Resolva.</small>
+            </div>
+
+        </section>
+
+        <section class="area-jogo">
+
+            <div class="titulo-secao">
+                <div>
+                    <span class="etiqueta">SEU DESAFIO</span>
+                    <h2>Cruzadinha</h2>
+                    <p>Preencha as casas de acordo com as pistas apresentadas.</p>
+                </div>
+
+                <div class="pontuacao">
+                    <span class="pontuacao-icone">★</span>
+
+                    <div>
+                        <strong id="score">0</strong>
+                        <small>ACERTOS</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="painel-jogo">
+
+                <section class="painel-tabuleiro">
+
+                    <div class="painel-cabecalho">
+                        <div>
+                            <h3>Tabuleiro</h3>
+                            <p>Digite uma letra em cada espaço.</p>
+                        </div>
+
+                        <span class="legenda-tabuleiro">
+                            <span class="legenda-cor"></span>
+                            Letras
+                        </span>
+                    </div>
+
+                    <div class="area-tabuleiro">
+                        <div
+                            id="crossword"
+                            class="crossword"
+                            aria-label="Tabuleiro da cruzadinha"
+                        ></div>
+                    </div>
+
+                    <div class="acoes-jogo">
+
+                        <button id="check-button" class="botao botao-principal" type="button">
+                            <span>✓</span>
+                            Conferir respostas
+                        </button>
+
+                        <button id="reset-button" class="botao botao-secundario" type="button">
+                            <span>↻</span>
+                            Reiniciar
+                        </button>
+
+                    </div>
+
+                    <div class="mensagem-progresso">
+                        <div class="progresso-informacoes">
+                            <span>Seu progresso</span>
+                            <strong id="progress-message">Comece a resolver!</strong>
+                        </div>
+
+                        <div class="barra-progresso">
+                            <div id="progress-fill" class="progresso-preenchido"></div>
+                        </div>
+                    </div>
+
+                </section>
+
+                <aside class="painel-pistas">
+
+                    <div class="painel-cabecalho">
+                        <div>
+                            <h3>Lista de pistas</h3>
+                            <p>Descubra as palavras correspondentes.</p>
+                        </div>
+                    </div>
+
+                    <section class="grupo-pistas">
+
+                        <div class="titulo-pistas">
+                            <span class="pista-direcao horizontal">↔</span>
+
+                            <div>
+                                <h4>Horizontais</h4>
+                                <small id="horizontal-count">0 palavras</small>
+                            </div>
+                        </div>
+
+                        <div id="horizontal-clues" class="lista-pistas">
+                        </div>
+
+                    </section>
+
+                    <div class="divisor-pistas"></div>
+
+                    <section class="grupo-pistas">
+
+                        <div class="titulo-pistas">
+                            <span class="pista-direcao vertical">↕</span>
+
+                            <div>
+                                <h4>Verticais</h4>
+                                <small id="vertical-count">0 palavras</small>
+                            </div>
+                        </div>
+
+                        <div id="vertical-clues" class="lista-pistas">
+                        </div>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+            <div class="aviso-jogo">
+                <span>ⓘ</span>
+
+                <p>
+                    <strong>Dica:</strong>
+                    observe os números das pistas e os cruzamentos entre as palavras.
+                    Cada letra compartilhada pode ajudar você a descobrir uma resposta.
+                </p>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="rodape">
+        <p>ARQCOMP <span>·</span> Cruzadinha de Arquitetura Computacional</p>
+        <small>Atividade Avaliativa III — Sprint 3</small>
+    </footer>
+
+</body>
+
+</html>
