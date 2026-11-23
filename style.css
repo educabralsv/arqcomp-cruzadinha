@@ -400,9 +400,11 @@ a:focus-visible {
 }
 
 .crossword {
+    --tamanho-celula: 30px;
+
     display: grid;
-    grid-template-columns: repeat(22, 30px);
-    grid-template-rows: repeat(22, 30px);
+    grid-template-columns: repeat(var(--colunas), var(--tamanho-celula));
+    grid-template-rows: repeat(var(--linhas), var(--tamanho-celula));
     gap: 2px;
     flex-shrink: 0;
 }
@@ -825,10 +827,9 @@ a:focus-visible {
     }
 
     .crossword {
-        grid-template-columns: repeat(22, 25px);
-        grid-template-rows: repeat(22, 25px);
-        gap: 1px;
-    }
+    --tamanho-celula: 25px;
+    gap: 1px;
+}
 
     .celula {
         width: 25px;
