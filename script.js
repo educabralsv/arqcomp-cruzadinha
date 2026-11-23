@@ -321,3 +321,217 @@ function mostrarPistas() {
 
 prepararTabuleiro()
 mostrarPistas()
+
+
+/* ========================================
+   6. VERIFICAÇÃO DAS RESPOSTAS
+======================================== */
+
+function verificarRespostas() {
+
+    var totalAcertos = 0
+    var statusPalavras = {}
+    var palavrasPorCelula = {}
+
+    // Verifica cada palavra do jogo
+
+    palavras.forEach(function(palavra) {
+
+        var respostaCompleta = true
+
+        for (var i = 0; i < palavra.resposta.length; i++) {
+
+            var linha = palavra.linha
+            var coluna = palavra.coluna
+
+            if (palavra.direcao == "horizontal") {
+                coluna = palavra.coluna + i
+            } else {
+                linha = palavra.linha + i
+            }
+
+            var chave = linha + "-" + coluna
+
+            var campo = tabuleiro.querySelector(
+                'input[data-linha="' + linha + '"][data-coluna="' + coluna + '"]'
+            )
+
+            var letraDigitada = campo.value.toUpperCase()
+            var letraCorreta = palavra.resposta[i]
+
+            // Compara a letra digitada com a resposta
+
+            if (letraDigitada != letraCorreta) {
+                respostaCompleta = false
+            }
+
+            // Guarda quais palavras passam por cada casa
+
+            if (!palavrasPorCelula[chave]) {
+                palavrasPorCelula[chave] = []
+            }
+
+            palavrasPorCelula[chave].push(palavra.numero)
+
+        }
+
+        statusPalavras[palavra.numero] = respostaCompleta
+
+        if (respostaCompleta) {
+            totalAcertos++
+        }
+
+        // Atualiza a aparência da pista
+
+        var pista = document.querySelector(
+            '.pista-item[data-numero="' + palavra.numero + '"]'
+        )
+
+        pista.classList.remove("resolvida")
+        pista.classList.remove("incorreta")
+
+        if (respostaCompleta) {
+            pista.classList.add("resolvida")
+        } else {
+            pista.classList.add("incorreta")
+        }
+
+    })
+
+    // Atualiza as cores das letras no tabuleiro
+
+    for (var chave in palavrasPorCelula) {
+
+        var coordenadas = chave.split("-")
+
+        var linha = coordenadas[0]
+        var coluna = coordenadas[1]
+
+        var campo = tabuleiro.querySelector(
+            'input[data-linha="' + linha + '"][data-coluna="' + coluna + '"]'
+        )
+
+        var todasCorretas = true
+
+        palavrasPorCelula[chave].forEach(function(numero) {
+
+            if (!statusPalavras[numero]) {
+                todasCorretas = false
+            }
+
+        })
+
+        campo.classList.remove("correta")
+        campo.classList.remove("incorreta")
+
+        if (campo.value != "") {
+
+            if (todasCorretas) {
+                campo.classList.add("correta")
+            } else {
+                campo.classList.add("incorreta")
+            }
+
+        }
+
+    }
+
+    // Atualiza a pontuação e o progresso
+
+    document.getElementById("score").innerText = totalAcertos
+
+    var porcentagem = (totalAcertos / palavras.length) * 100
+
+    document.getElementById("progress-fill").style.width = porcentagem + "%"
+
+    var mensagem = document.getElementById("progress-message")
+
+    if (totalAcertos == palavras.length) {
+
+        mensagem.innerText = "Parabéns! Você completou o desafio!"
+
+    } else if (totalAcertos > 0) {
+
+        mensagem.innerText = totalAcertos + " de " + palavras.length + " palavras corretas"
+
+    } else {
+
+        mensagem.innerText = "Continue tentando!"
+
+    }
+
+}
+
+/* ========================================
+   7. REINICIAR A PARTIDA
+======================================== */
+
+function reiniciarJogo() {
+
+    // Limpa todas as letras digitadas
+
+    var campos = tabuleiro.querySelectorAll("input")
+
+    campos.forEach(function(campo) {
+
+        campo.value = ""
+
+        campo.classList.remove("correta")
+        campo.classList.remove("incorreta")
+
+    })
+
+    // Remove os destaques das pistas
+
+    var pistas = document.querySelectorAll(".pista-item")
+
+    pistas.forEach(function(pista) {
+
+        pista.classList.remove("resolvida")
+        pista.classList.remove("incorreta")
+
+    })
+
+    // Zera a pontuação e o progresso
+
+    document.getElementById("score").innerText = "0"
+
+    document.getElementById("progress-fill").style.width = "0%"
+
+    document.getElementById("progress-message").innerText = "Comece a resolver!"
+
+}
+
+/* ========================================
+   8. CONFIGURAÇÃO DOS EVENTOS
+======================================== */
+
+// Transforma as letras digitadas em maiúsculas
+
+var camposTabuleiro = tabuleiro.querySelectorAll("input")
+
+camposTabuleiro.forEach(function(campo) {
+
+    campo.addEventListener("input", function() {
+
+        this.value = this.value.toUpperCase().replace(/[^A-Z]/g, "")
+
+    })
+
+})
+
+// Botão de conferir respostas
+
+document.getElementById("check-button").addEventListener("click", function() {
+
+    verificarRespostas()
+
+})
+
+// Botão de reiniciar
+
+document.getElementById("reset-button").addEventListener("click", function() {
+
+    reiniciarJogo()
+
+})

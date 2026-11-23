@@ -883,3 +883,19 @@ a:focus-visible {
     }
 
 }
+
+
+/* ========================================
+   14. ESTADOS DAS PISTAS
+======================================== */
+
+.pista-item.incorreta {
+    border-color: #f1caca;
+    background-color: #fff7f7;
+}
+
+.pista-item.incorreta .pista-numero {
+    background-color: #ffe2e2;
+    color: #c33232;
+}
+
